@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technologie 4e - Impact Environnemental et ACV</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #005a9e;
+            --secondary-color: #3aa6d0;
+            --accent-color: #ffc107;
+            --text-color: #333;
+            --bg-color: #f4f7f9;
+            --card-bg: #ffffff;
+            --header-bg: #003b6a;
+            --font-title: 'Montserrat', sans-serif;
+            --font-body: 'Roboto', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            background: var(--header-bg);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 5px solid var(--accent-color);
+        }
+
+        header h1 {
+            font-family: var(--font-title);
+            font-size: 2.8em;
+            margin: 0;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        h2, h3 {
+            font-family: var(--font-title);
+            color: var(--primary-color);
+        }
+
+        .section {
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            border-left: 5px solid var(--secondary-color);
+            background-color: #fafcff;
+            border-radius: 0 8px 8px 0;
+            animation: slideInUp 0.8s ease-out;
+        }
+        
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hook {
+            font-style: italic;
+            background: #fff3cd;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 5px solid var(--accent-color);
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        .objectives ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .objectives li {
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .objectives i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+        }
+
+        .concept-card {
+            background: var(--card-bg);
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .concept-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .concept-card h3 {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            margin: 0;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .concept-content {
+            padding: 1.5rem;
+        }
+
+        .concept-content h4 {
+            color: var(--secondary-color);
+            margin-top: 1rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+            font-size: 1.1em;
+        }
+        
+        .concept-content h4 i {
+            margin-right: 8px;
+        }
+
+        .info-box {
+            background: #e7f3fe;
+            border-left: 4px solid #2196F3;
+            margin: 1em 0;
+            padding: 0.1em 1em;
+            border-radius: 4px;
+        }
+
+        .expert-box {
+            background: #fff8e1;
+            border-left: 4px solid #ff9800;
+        }
+        
+        .course-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin: 1.5rem 0;
+            display: block;
+            background-color: #e0e0e0; /* Placeholder color */
+            min-height: 200px;
+            position: relative;
+        }
+        
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--secondary-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -25px;
+            margin-left: -25px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .mind-map ul {
+            list-style: none;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .mind-map ul li {
+            margin: 0.5em 0;
+            position: relative;
+        }
+
+        .mind-map ul li::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 10px;
+            border-left: 1px solid var(--secondary-color);
+            border-bottom: 1px solid var(--secondary-color);
+            width: 10px;
+            height: 0;
+        }
+        
+        .glossary dt {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .glossary dd {
+            margin-left: 0;
+            margin-bottom: 1rem;
+        }
+
+        /* Chatbot Styles */
+        #chatbot-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #chatbot-container {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            width: 350px;
+            max-width: 90vw;
+            height: 500px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: scale(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-in-out;
+            z-index: 999;
+        }
+
+        #chatbot-container.open {
+            transform: scale(1);
+        }
+
+        #chatbot-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            font-family: var(--font-title);
+        }
+
+        #chatbot-messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .message {
+            padding: 10px 15px;
+            border-radius: 20px;
+            max-width: 80%;
+            line-height: 1.4;
+        }
+        .user-message {
+            background-color: #e0e0e0;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+        .bot-message {
+            background-color: var(--secondary-color);
+            color: white;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        #chatbot-input-container {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #eee;
+        }
+
+        #chatbot-input {
+            flex-grow: 1;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            padding: 10px 15px;
+            font-size: 1em;
+        }
+
+        #chatbot-send {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-size: 20px;
+            cursor: pointer;
+            padding: 0 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><i class="fas fa-recycle"></i> Technologie - Classe de 4ème</h1>
+        <p>Impact Environnemental et Analyse du Cycle de Vie (ACV)</p>
+    </header>
+
+    <div class="container">
+        
+        <!-- 1. TITRE DE LA SÉQUENCE -->
+        <div class="section">
+            <h2>1. Titre de la Séquence</h2>
+            <p><strong>IMPACT ENVIRONNEMENTAL ET ANALYSE DU CYCLE DE VIE (ACV)</strong></p>
+        </div>
+        
+        <div class="course-image-container">
+            <img class="course-image ai-generated-image" 
+                 data-prompt="Art conceptuel d'un smartphone moderne fusionnant de manière transparente avec un paysage naturel luxuriant, mêlant technologie et écologie. Couleurs hyper-réalistes et vibrantes." 
+                 alt="Image conceptuelle générée par IA d'un smartphone fusionnant avec la nature">
+        </div>
+        
+        <!-- 2. SITUATION DÉCLENCHANTE -->
+        <div class="section">
+            <h2>2. Situation Déclenchante</h2>
+            <div class="hook">
+                <p><i class="fas fa-lightbulb"></i> Ton nouveau smartphone est génial, n'est-ce pas ? Ultra-rapide, un appareil photo incroyable... Mais t'es-tu déjà demandé quel est son coût caché pour la planète ? Imagine un voyage : on commence dans une mine en Afrique pour extraire des métaux rares, puis on passe par une usine gigantesque en Asie pour l'assemblage, pour finir, peut-être, dans une immense décharge électronique à ciel ouvert... Dans cette leçon, nous allons devenir des détectives de l'environnement pour enquêter sur le parcours secret de nos objets et découvrir leur véritable empreinte écologique.</p>
+            </div>
+        </div>
+
+        <!-- 3. OBJECTIFS PÉDAGOGIQUES -->
+        <div class="section objectives">
+            <h2>3. Ta mission, si tu l'acceptes...</h2>
+            <h3><i class="fas fa-tasks"></i> Compétences à maîtriser :</h3>
+            <ul>
+                <li><i class="fas fa-sitemap"></i> Identifier les 5 grandes étapes du cycle de vie d'un produit.</li>
+                <li><i class="fas fa-leaf"></i> Repérer les principaux impacts environnementaux à chaque étape.</li>
+                <li><i class="fas fa-cogs"></i> Proposer des solutions d'éco-conception pour réduire ces impacts.</li>
+            </ul>
+            <h3><i class="fas fa-book-open"></i> Savoirs et connaissances à acquérir :</h3>
+            <ul>
+                <li><i class="fas fa-chart-line"></i> Analyse du Cycle de Vie (ACV)</li>
+                <li><i class="fas fa-seedling"></i> Éco-conception & Développement durable</li>
+                <li><i class="fas fa-recycle"></i> Recyclage, valorisation, réemploi</li>
+                <li><i class="fas fa-battery-slash"></i> Obsolescence (technique, programmée)</li>
+            </ul>
+        </div>
+        
+        <!-- 4. INTRODUCTION ET PROBLÉMATIQUE -->
+        <div class="section">
+            <h2>4. Introduction et Problématique</h2>
+            <p>Depuis toujours, l'humanité crée des objets pour améliorer son quotidien. Mais aujourd'hui, nous fabriquons et consommons à une vitesse sans précédent. Chaque objet, qu'il s'agisse d'un simple stylo ou d'un drone sophistiqué, a une histoire et un impact sur notre planète. Comprendre cet impact n'est plus une option, c'est une nécessité.</p>
+            <p><strong>Problématique : Comment pouvons-nous, en tant que concepteurs et utilisateurs, évaluer et réduire l'impact environnemental d'un objet technique tout au long de sa vie ?</strong></p>
+            <p>Pour répondre à cette question, nous allons explorer l'Analyse du Cycle de Vie (ACV), puis découvrir comment l'éco-conception, le développement durable et le recyclage nous offrent des solutions concrètes. Nous verrons aussi le problème de l'obsolescence.</p>
+        </div>
+
+        <!-- 5. DÉVELOPPEMENT DU COURS -->
+        <div class="section">
+            <h2>5. Exploration en Profondeur</h2>
+            
+            <div class="concept-card">
+                <h3><i class="fas fa-chart-line"></i> Analyse du Cycle de Vie (ACV)</h3>
+                <div class="concept-content">
+                    <h4><i class="fas fa-graduation-cap"></i> a) La Définition de Référence</h4>
+                    <p>L'Analyse du Cycle de Vie (ACV) est une méthode d'évaluation normalisée (ISO 14040/14044) qui permet de quantifier les impacts environnementaux d'un produit, d'un service ou d'un procédé, de l'extraction des matières premières ("du berceau") jusqu'à sa fin de vie ("à la tombe").</p>
+                    
+                    <h4><i class="fas fa-brain"></i> b) Analogie et Simplification</h4>
+                    <p>Imagine que l'ACV est comme le "carnet de santé" écologique d'un objet. Au lieu de regarder seulement sa taille ou son poids, on note tout ce qu'il a "consommé" (énergie, eau, matières) et "rejeté" (pollution, déchets) durant toute son existence, de sa naissance à sa mort.</p>
+                    
+                    <h4><i class="fas fa-mobile-alt"></i> c) Étude de Cas : Le Smartphone</h4>
+                    <p>Pour un smartphone, l'ACV va analyser : l'extraction minière (cobalt, lithium...), la consommation d'énergie de l'usine, le carburant du transport, l'électricité que tu utilises pour le charger, et enfin l'impact du recyclage ou de son abandon.</p>
+                    <div class="course-image-container">
+                        <img class="course-image ai-generated-image" 
+                             data-prompt="Une infographie claire et moderne illustrant les 5 étapes du cycle de vie d'un produit : extraction des matières premières, fabrication, transport, utilisation et recyclage en fin de vie. Icônes minimalistes, flèches claires, sur fond clair."
+                             alt="Illustration infographique du cycle de vie d'un produit, de l'extraction au recyclage">
+                    </div>
+
+                    <h4><i class="fas fa-tools"></i> d) Au Cœur du Système : Les 5 Étapes</h4>
+                    <ol>
+                        <li><strong>Extraction des matières premières :</strong> On liste tous les matériaux (plastique, métaux, verre...). Impact : épuisement des ressources, pollution des sols.</li>
+                        <li><strong>Fabrication & Assemblage :</strong> On mesure l'énergie et l'eau utilisées par les usines. Impact : émissions de gaz à effet de serre.</li>
+                        <li><strong>Transport & Distribution :</strong> On calcule le CO2 émis par les avions, bateaux, camions. Impact : pollution de l'air.</li>
+                        <li><strong>Utilisation :</strong> On estime l'électricité consommée pour le recharger pendant 3 ans. Impact : consommation d'énergie.</li>
+                        <li><strong>Fin de vie :</strong> On regarde le pourcentage recyclé, incinéré ou mis en décharge. Impact : pollution, déchets.</li>
+                    </ol>
+
+                    <h4><i class="fas fa-exclamation-triangle"></i> e) Points de Vigilance</h4>
+                    <p><strong>Erreur 1 :</strong> Penser que le transport est le plus polluant. Faux ! Pour un smartphone, c'est la fabrication (70-80% de l'impact) qui domine !</p>
+                    <p><strong>Erreur 2 :</strong> Oublier "l'énergie grise". C'est toute l'énergie cachée nécessaire à la fabrication, bien avant que tu allumes ton appareil.</p>
+                    
+                    <h4><i class="fas fa-lightbulb"></i> f) Le Saviez-Vous ?</h4>
+                    <div class="info-box">
+                    Il faut environ 200 kg de matières premières pour fabriquer un seul smartphone de 200 grammes ! C'est ce qu'on appelle le "sac à dos écologique".
+                    </div>
+
+                    <h4><i class="fas fa-link"></i> g) Ponts Interdisciplinaires</h4>
+                    <p><strong>SVT :</strong> Étude des écosystèmes affectés par l'extraction minière. <strong>Physique-Chimie :</strong> Comprendre les propriétés des "terres rares" utilisées dans les écrans. <strong>Géographie :</strong> Cartographier les routes mondiales de la fabrication électronique.</p>
+
+                    <h4><i class="fas fa-rocket"></i> h) Pour les Experts</h4>
+                    <div class="info-box expert-box">
+                    On parle parfois d'ACV "du berceau à la porte" (jusqu'à la sortie de l'usine) ou "du berceau au berceau" (Cradle-to-Cradle), quand le produit est conçu pour être 100% recyclé en un nouveau produit de même qualité.
+                    </div>
+                </div>
+            </div>
+
+             <div class="concept-card">
+                <h3><i class="fas fa-seedling"></i> Éco-conception</h3>
+                <div class="concept-content">
+                    <h4><i class="fas fa-graduation-cap"></i> a) La Définition de Référence</h4>
+                    <p>L'éco-conception est une démarche préventive et innovante qui vise à intégrer la protection de l'environnement dès la phase de conception d'un produit ou d'un service. Son objectif est de réduire les impacts environnementaux tout au long du cycle de vie, tout en conservant la qualité et la performance du produit.</p>
+                    
+                    <h4><i class="fas fa-brain"></i> b) Analogie et Simplification</h4>
+                    <p>C'est comme construire une maison en pensant dès le début à l'isolation, à l'orientation du soleil et à l'utilisation de matériaux locaux pour qu'elle consomme le moins d'énergie possible. Pour un objet, c'est pareil : on réfléchit AVANT sa fabrication pour qu'il soit le plus "gentil" possible avec la planète.</p>
+                    
+                    <h4><i class="fas fa-drone"></i> c) Étude de Cas : Le Drône de loisir</h4>
+                    <p>Un drône éco-conçu pourrait utiliser du plastique recyclé pour son châssis, avoir des bras et des hélices facilement remplaçables en cas de casse (pour éviter de tout jeter), et être vendu dans un emballage minimaliste en carton recyclé. Sa batterie serait aussi conçue pour être facilement changée.</p>
+                     <div class="course-image-container">
+                        <img class="course-image ai-generated-image" 
+                             data-prompt="Un drone éco-conçu avec un châssis en plastique recyclé et des accents de bambou. Un bras est transparent, montrant des composants modulaires facilement remplaçables. Le drone est en vol stationnaire au-dessus d'un fond vert et feuillu. Design épuré et innovant."
+                             alt="Visuel généré par IA montrant un drone conçu avec des matériaux écologiques et réparables">
+                     </div>
+                    
+                    <h4><i class="fas fa-tools"></i> d) Au Cœur du Système : Comment éco-concevoir ?</h4>
+                    <ol>
+                        <li><strong>Choisir des matériaux à faible impact :</strong> Préférer les matériaux recyclés, biosourcés (issus de plantes) ou abondants.</li>
+                        <li><strong>Optimiser la fabrication :</strong> Utiliser des procédés qui consomment moins d'énergie et d'eau.</li>
+                        <li><strong>Réduire le poids et le volume :</strong> Un produit plus léger et plus petit consomme moins de carburant pour son transport.</li>
+                        <li><strong>Penser à la réparabilité :</strong> Concevoir l'objet pour qu'il soit facile à démonter et à réparer (vis standards, pièces détachées disponibles). C'est le contraire d'un objet "tout collé".</li>
+                        <li><strong>Anticiper la fin de vie :</strong> Utiliser un seul type de plastique plutôt que des mélanges difficiles à recycler.</li>
+                    </ol>
+
+                    <h4><i class="fas fa-exclamation-triangle"></i> e) Points de Vigilance</h4>
+                    <p><strong>Erreur 1 :</strong> Penser que l'éco-conception, c'est juste utiliser du carton recyclé. C'est une démarche globale qui touche à TOUT le produit.</p>
+                    <p><strong>Erreur 2 :</strong> Croire qu'un produit éco-conçu est moins performant. Au contraire, c'est souvent un défi d'innovation qui mène à des produits plus intelligents et durables.</p>
+                    
+                    <h4><i class="fas fa-lightbulb"></i> f) Le Saviez-Vous ?</h4>
+                     <div class="info-box">
+                    L'entreprise Fairphone a créé un smartphone modulaire et éco-conçu. L'utilisateur peut changer lui-même la batterie, l'appareil photo ou l'écran en quelques minutes avec un simple tournevis !
+                    </div>
+
+                    <h4><i class="fas fa-link"></i> g) Ponts Interdisciplinaires</h4>
+                    <p><strong>Arts Plastiques :</strong> Imaginer le design d'un objet à la fois beau, fonctionnel et écologique. <strong>Mathématiques :</strong> Calculer le gain de poids et l'économie de CO2 réalisée grâce à l'optimisation de l'emballage.</p>
+
+                    <h4><i class="fas fa-rocket"></i> h) Pour les Experts</h4>
+                    <div class="info-box expert-box">
+                    On utilise des "roues de l'éco-conception" (ou "roues de LiDS") comme outil visuel pour analyser 8 stratégies différentes d'amélioration d'un produit, de la sélection des matériaux à l'optimisation de la fin de vie.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="concept-card">
+                <h3><i class="fas fa-globe-europe"></i> Développement durable</h3>
+                <div class="concept-content">
+                    <h4><i class="fas fa-graduation-cap"></i> a) La Définition de Référence</h4>
+                    <p>Le développement durable est un mode de développement qui répond aux besoins du présent sans compromettre la capacité des générations futures à répondre aux leurs. Il repose sur trois piliers interdépendants : l'efficacité économique, l'équité sociale et la qualité environnementale.</p>
+                    
+                    <h4><i class="fas fa-brain"></i> b) Analogie et Simplification</h4>
+                    <p>Imagine que tu as un gâteau. Le développement durable, c'est trouver une façon pour que tout le monde à table aujourd'hui ait une part équitable, tout en s'assurant qu'il en restera assez pour les invités qui arriveront demain et après-demain. On ne doit ni gaspiller, ni être injuste, ni rendre la cuisine inhabitable.</p>
+                    
+                    <h4><i class="fas fa-mobile-alt"></i> c) Étude de Cas : L'Industrie du Smartphone</h4>
+                    <p>Un smartphone "durable" ne serait pas seulement fabriqué avec un faible impact écologique (pilier <strong>environnemental</strong>). Il serait aussi assemblé par des ouvriers travaillant dans de bonnes conditions et avec un salaire juste (pilier <strong>social</strong>), tout en permettant à l'entreprise de rester rentable pour continuer à innover et employer des gens (pilier <strong>économique</strong>).</p>
+
+                    <h4><i class="fas fa-tools"></i> d) Au Cœur du Système : Les 3 Piliers</h4>
+                    <ul>
+                        <li><strong>Pilier Environnemental :</strong> C'est tout ce que nous avons vu avec l'ACV et l'éco-conception. Il s'agit de préserver la biodiversité, de lutter contre le changement climatique et d'utiliser les ressources naturelles de manière rationnelle.</li>
+                        <li><strong>Pilier Social :</strong> Il concerne le bien-être des humains. Cela inclut le respect des droits des travailleurs, la lutte contre la pauvreté et les inégalités, et l'accès à l'éducation et à la santé pour tous.</li>
+                        <li><strong>Pilier Économique :</strong> Il s'agit de créer de la richesse et des emplois de manière responsable. Une entreprise durable est une entreprise qui est viable sur le long terme sans détruire ses ressources (environnementales ou humaines).</li>
+                    </ul>
+
+                    <h4><i class="fas fa-exclamation-triangle"></i> e) Points de Vigilance</h4>
+                    <p><strong>Erreur 1 :</strong> Le "Greenwashing". C'est quand une entreprise communique beaucoup sur une petite action écologique pour se donner une bonne image, tout en continuant à polluer massivement par ailleurs.</p>
+                    <p><strong>Erreur 2 :</strong> Réduire le développement durable à l'écologie. C'est oublier que le social et l'économique sont tout aussi importants pour que le système fonctionne.</p>
+                    
+                    <h4><i class="fas fa-lightbulb"></i> f) Le Saviez-Vous ?</h4>
+                    <div class="info-box">
+                    L'ONU a défini 17 Objectifs de Développement Durable (ODD) à atteindre d'ici 2030. Ils couvrent des sujets aussi variés que l'éradication de la faim, l'égalité des sexes, l'accès à une énergie propre et la protection des océans.
+                    </div>
+
+                    <h4><i class="fas fa-link"></i> g) Ponts Interdisciplinaires</h4>
+                    <p><strong>Histoire-Géographie-EMC :</strong> C'est le cœur même de nombreux sujets d'Éducation Morale et Civique sur la responsabilité et l'engagement citoyen. <strong>Économie :</strong> Étudier les modèles d'économie circulaire ou d'économie de la fonctionnalité.</p>
+
+                    <h4><i class="fas fa-rocket"></i> h) Pour les Experts</h4>
+                    <div class="info-box expert-box">
+                    Le concept de "limites planétaires" définit les 9 seuils (changement climatique, érosion de la biodiversité, etc.) que l'humanité ne doit pas dépasser pour garantir un environnement stable. Le développement durable doit s'inscrire à l'intérieur de ces limites.
+                    </div>
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <h3><i class="fas fa-recycle"></i> Recyclage, valorisation, réemploi</h3>
+                <div class="concept-content">
+                    <h4><i class="fas fa-graduation-cap"></i> a) La Définition de Référence</h4>
+                    <p>Ce sont trois stratégies de gestion des déchets. Le <strong>réemploi</strong> consiste à réutiliser un produit pour le même usage. La <strong>valorisation</strong> (ou réutilisation) est le fait de réutiliser des parties d'un produit pour un autre usage. Le <strong>recyclage</strong> est le procédé qui consiste à transformer les matériaux d'un déchet pour produire de nouvelles matières premières.</p>
+                    
+                    <h4><i class="fas fa-brain"></i> b) Analogie et Simplification</h4>
+                    <p>Imagine une bouteille en verre. La <strong>réemployer</strong>, c'est la laver et la remplir à nouveau (consigne). La <strong>valoriser</strong>, c'est la casser et utiliser les morceaux pour décorer un mur. La <strong>recycler</strong>, c'est la fondre avec d'autres bouteilles pour en fabriquer de nouvelles.</p>
+                    
+                    <h4><i class="fas fa-mobile-alt"></i> c) Étude de Cas : La Fin de Vie du Smartphone</h4>
+                    <p><strong>Réemploi :</strong> Vendre son ancien smartphone sur un site de reconditionnement (ex: Back Market). Il sera nettoyé, réparé si besoin, et revendu. <strong>Valorisation :</strong> Récupérer le module caméra en état de marche pour l'intégrer dans un autre système (ex: une sonnette connectée). <strong>Recyclage :</strong> Broyer le téléphone pour en extraire les métaux précieux (or, argent, cuivre) qui seront refondus et serviront à fabriquer de nouveaux composants.</p>
+                    <div class="course-image-container">
+                        <img class="course-image ai-generated-image" 
+                             data-prompt="Une image symbolique et puissante d'une petite plante verte et vibrante qui pousse hors d'un tas de déchets électroniques mis au rebut, comme de vieilles cartes de circuits imprimés et des téléphones. Pleine d'espoir, contrastant la décomposition et la nouvelle vie."
+                             alt="Image poignante de déchets électroniques d'où pousse une plante verte, symbolisant le recyclage">
+                    </div>
+                    
+                    <h4><i class="fas fa-tools"></i> d) Au Cœur du Système : La Hiérarchie des "3R"</h4>
+                    <p>Il existe une priorité dans la gestion des déchets, souvent appelée la règle des 3R (ou 5R) :</p>
+                    <ol>
+                        <li><strong>Réduire :</strong> Le meilleur déchet est celui qu'on ne produit pas ! Acheter moins, choisir des produits durables.</li>
+                        <li><strong>Réemployer / Réparer :</strong> C'est la solution la plus écologique car elle demande très peu d'énergie.</li>
+                        <li><strong>Recycler :</strong> C'est bien, mais ça consomme quand même de l'énergie. C'est la solution à privilégier quand on ne peut ni réduire ni réemployer.</li>
+                        <li>(Valoriser énergétiquement : Brûler les déchets pour produire de la chaleur ou de l'électricité).</li>
+                        <li>(Éliminer / Enfouir : La pire des solutions, à éviter au maximum).</li>
+                    </ol>
+
+                    <h4><i class="fas fa-exclamation-triangle"></i> e) Points de Vigilance</h4>
+                    <p><strong>Erreur 1 :</strong> Croire que tout est recyclable à l'infini. Faux ! Le plastique, par exemple, perd en qualité à chaque recyclage (on parle de "décyclage").</p>
+                    <p><strong>Erreur 2 :</strong> Mettre son vieux téléphone à la poubelle normale. C'est illégal et très dangereux ! Il contient des polluants qui doivent être traités dans une filière spécialisée (DEEE : Déchets d'Équipements Électriques et Électroniques).</p>
+                    
+                    <h4><i class="fas fa-lightbulb"></i> f) Le Saviez-Vous ?</h4>
+                    <div class="info-box">
+                    Une tonne de cartes électroniques de téléphones contient jusqu'à 1 kg d'or, soit 100 à 200 fois plus que dans une tonne de minerai d'or extrait d'une mine ! On parle de "mine urbaine".
+                    </div>
+
+                    <h4><i class="fas fa-link"></i> g) Ponts Interdisciplinaires</h4>
+                    <p><strong>Chimie :</strong> Étudier les procédés chimiques (ex: hydrométallurgie) utilisés pour séparer les différents métaux lors du recyclage. <strong>Technologie :</strong> Concevoir une machine capable de trier automatiquement différents types de plastiques.</p>
+
+                    <h4><i class="fas fa-rocket"></i> h) Pour les Experts</h4>
+                    <div class="info-box expert-box">
+                    L'économie circulaire est un modèle économique qui va plus loin que le recyclage. Son but est de produire des biens et services tout en limitant drastiquement la consommation et le gaspillage des matières premières et des sources d'énergie non renouvelables. On ne pense plus de façon linéaire (extraire-fabriquer-jeter) mais en boucle.
+                    </div>
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <h3><i class="fas fa-battery-slash"></i> Obsolescence (technique, programmée)</h3>
+                <div class="concept-content">
+                    <h4><i class="fas fa-graduation-cap"></i> a) La Définition de Référence</h4>
+                    <p>L'obsolescence est la perte de valeur d'un produit due à l'évolution technique ou à des stratégies commerciales. L'<strong>obsolescence programmée</strong> est l'ensemble des techniques visant à réduire délibérément la durée de vie ou d'utilisation d'un produit pour en augmenter le taux de remplacement. C'est un délit en France.</p>
+                    
+                    <h4><i class="fas fa-brain"></i> b) Analogie et Simplification</h4>
+                    <p>Imagine que ton sac à dos a une fermeture éclair conçue pour casser pile au bout de deux ans, juste après la fin de la garantie. Et bien sûr, elle est impossible à réparer, t'obligeant à racheter un sac neuf. C'est ça, l'obsolescence programmée.</p>
+                    
+                    <h4><i class="fas fa-mobile-alt"></i> c) Étude de Cas : Le Smartphone</h4>
+                    <p>L'obsolescence sur un smartphone peut prendre plusieurs formes : batterie collée impossible à changer soi-même (<strong>obsolescence technique</strong>), nouvelles mises à jour logicielles qui ralentissent volontairement les anciens modèles ou qui ne sont plus compatibles (<strong>obsolescence logicielle</strong>), ou encore la sortie annuelle d'un "nouveau" modèle avec peu d'innovations mais un marketing intense qui donne l'impression que le sien est dépassé (<strong>obsolescence psychologique</strong>).</p>
+                    <div class="course-image-container">
+                        <img class="course-image ai-generated-image" 
+                             data-prompt="Art conceptuel représentant une rangée de smartphones. Le premier est neuf et lumineux, puis ils s'effritent et se décomposent progressivement en poussière, symbolisant l'obsolescence programmée. Un cadran d'horloge est faiblement visible en arrière-plan. D'humeur changeante, invitant à la réflexion."
+                             alt="Art conceptuel sur l'obsolescence programmée, montrant des smartphones se dégradant avec le temps">
+                    </div>
+
+                    <h4><i class="fas fa-tools"></i> d) Au Cœur du Système : Les Différents Types d'Obsolescence</h4>
+                    <ul>
+                        <li><strong>Par défaut fonctionnel :</strong> Une pièce lâche et le produit ne fonctionne plus. La réparation est plus chère que le rachat.</li>
+                        <li><strong>Par incompatibilité :</strong> Un nouveau logiciel, un nouveau format de chargeur... et votre appareil devient incompatible avec le reste de l'écosystème.</li>
+                        <li><strong>Psychologique ou esthétique :</strong> La mode et la publicité vous persuadent que votre produit, qui fonctionne parfaitement, est "démodé".</li>
+                    </ul>
+
+                    <h4><i class="fas fa-exclamation-triangle"></i> e) Points de Vigilance</h4>
+                    <p><strong>Erreur 1 :</strong> Confondre l'évolution technologique normale et l'obsolescence programmée. Qu'un ordinateur de 1990 soit dépassé, c'est normal. Qu'une imprimante de 2020 se bloque après 10 000 pages imprimées alors qu'elle est en parfait état, c'est suspect.</p>
+                    <p><strong>Erreur 2 :</strong> Penser qu'on ne peut rien y faire. Faux ! Des lois existent, et en tant que consommateur, on peut se tourner vers des marques plus vertueuses et faire réparer ses objets.</p>
+                    
+                    <h4><i class="fas fa-lightbulb"></i> f) Le Saviez-Vous ?</h4>
+                    <div class="info-box">
+                    En France, depuis 2021, les fabricants de certains produits électroniques (smartphones, ordinateurs, TV...) doivent afficher un "indice de réparabilité". Cette note sur 10 informe le consommateur sur la facilité (ou la difficulté) à réparer le produit qu'il achète.
+                    </div>
+
+                    <h4><i class="fas fa-link"></i> g) Ponts Interdisciplinaires</h4>
+                    <p><strong>EMC / Droit :</strong> Étudier la loi qui punit l'obsolescence programmée. <strong>Marketing / Publicité :</strong> Analyser les techniques publicitaires qui créent un besoin de nouveauté et poussent à la consommation.</p>
+
+                    <h4><i class="fas fa-rocket"></i> h) Pour les Experts</h4>
+                    <div class="info-box expert-box">
+                    Le "Cartel de Phœbus" est un exemple historique. Dans les années 1920, les plus grands fabricants d'ampoules (Philips, Osram...) se sont secrètement mis d'accord pour limiter la durée de vie de leurs ampoules à 1000 heures, alors qu'elles pouvaient durer bien plus longtemps, afin d'en vendre davantage.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 6. AVENIR ET PERSPECTIVES -->
+        <div class="section">
+            <h2>6. Avenir et Perspectives</h2>
+            <p>Demain, l'enjeu ne sera plus seulement de créer des objets plus puissants, mais des objets plus intelligents, plus respectueux et plus durables. On verra de plus en plus de matériaux innovants (plastiques biodégradables, matériaux auto-réparants), et l'intelligence artificielle nous aidera à optimiser chaque étape du cycle de vie. Les métiers de demain seront ceux d'ingénieur en éco-conception, de spécialiste en recyclage de matériaux complexes, ou encore de "répar'acteur". Le défi sera de passer d'une société de possession à une société d'usage : louer un service plutôt que de posséder un objet.</p>
+        </div>
+
+        <!-- 7. CONCLUSION -->
+        <div class="section">
+            <h2>7. Conclusion</h2>
+            <p>Nous avons découvert que derrière chaque objet se cache une histoire complexe avec des conséquences bien réelles pour notre planète. L'Analyse du Cycle de Vie nous a donné les outils pour "lire" cette histoire et mesurer son empreinte écologique. Face à la problématique de départ, nous avons vu que la solution n'est pas unique : elle réside dans une approche globale. L'<strong>éco-conception</strong> nous pousse à repenser la fabrication, le <strong>développement durable</strong> nous rappelle d'équilibrer écologie, social et économie, et une gestion intelligente de la <strong>fin de vie</strong> (réemploi, recyclage) permet de boucler la boucle. En tant que futurs citoyens et peut-être concepteurs, nous avons donc le pouvoir et la responsabilité de choisir et de créer des objets qui respectent les limites de notre planète.</p>
+        </div>
+
+        <!-- 8. SYNTHÈSE VISUELLE -->
+        <div class="section mind-map">
+            <h2>8. Synthèse Visuelle (Carte Mentale)</h2>
+            <ul>
+                <li><strong>Impact Environnemental d'un objet</strong>
+                    <ul>
+                        <li><strong>Outil d'analyse : L'ACV (Analyse du Cycle de Vie)</strong>
+                            <ul>
+                                <li>Définition : Bilan écologique "du berceau à la tombe".</li>
+                                <li>5 étapes : Extraction, Fabrication, Transport, Utilisation, Fin de vie.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Solutions pour réduire l'impact :</strong>
+                            <ul>
+                                <li><strong>Éco-conception :</strong> Penser écologie dès la conception (matériaux, réparabilité...).</li>
+                                <li><strong>Développement Durable :</strong> Équilibrer 3 piliers (Environnement, Social, Économie).</li>
+                                <li><strong>Gestion de la fin de vie :</strong>
+                                    <ul>
+                                        <li>Priorité 1 : Réduire & Réemployer.</li>
+                                        <li>Priorité 2 : Recycler & Valoriser.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                         <li><strong>Problème à combattre :</strong>
+                            <ul>
+                                <li><strong>Obsolescence :</strong> Réduction de la durée de vie (programmée, technique, logicielle...).</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- 9. LEXIQUE / GLOSSAIRE -->
+        <div class="section glossary">
+            <h2>9. Lexique / Glossaire</h2>
+            <dl>
+                <dt>ACV (Analyse du Cycle de Vie)</dt>
+                <dd>Méthode pour évaluer les impacts environnementaux d'un produit sur l'ensemble de sa vie.</dd>
+                <dt>Développement durable</dt>
+                <dd>Développement qui répond aux besoins actuels sans empêcher les générations futures de répondre aux leurs.</dd>
+                <dt>DEEE</dt>
+                <dd>Déchets d'Équipements Électriques et Électroniques. Ce sont des déchets dangereux qui doivent suivre une filière de traitement spéciale.</dd>
+                <dt>Éco-conception</dt>
+                <dd>Intégrer l'environnement dès la phase de conception d'un produit.</dd>
+                <dt>Énergie grise</dt>
+                <dd>Quantité d'énergie consommée lors du cycle de vie d'un produit, de l'extraction à la fin de vie, hors utilisation.</dd>
+                <dt>Obsolescence programmée</dt>
+                <dd>Techniques du fabricant pour réduire volontairement la durée de vie d'un produit.</dd>
+                <dt>Recyclage</dt>
+                <dd>Procédé de traitement des déchets qui permet de réintroduire les matériaux dans la fabrication de nouveaux produits.</dd>
+                <dt>Réemploi</dt>
+                <dd>Action de donner une seconde vie à un produit en le réutilisant pour son usage initial.</dd>
+            </dl>
+        </div>
+        
+        <!-- 10. POUR ALLER PLUS LOIN -->
+        <div class="section">
+            <h2>10. Pour Aller Plus Loin</h2>
+            <ul>
+                <li><strong><i class="fas fa-project-diagram"></i> Mini-projet :</strong> Choisis un objet simple chez toi (une brosse à dents, une souris d'ordinateur...). Essaie de dessiner son cycle de vie en 5 étapes et imagine comment tu pourrais l'éco-concevoir.</li>
+                <li><strong><i class="fas fa-video"></i> Vidéo à voir :</strong> Recherche "Prêt à jeter - L'obsolescence programmée" sur Arte. C'est un documentaire passionnant qui a fait date !</li>
+                <li><strong><i class="fas fa-user-tie"></i> Métier à découvrir :</strong> Ingénieur(e) en éco-conception. Ce professionnel aide les entreprises à créer des produits plus respectueux de l'environnement, de la chaise de bureau au TGV !</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- Chatbot -->
+    <button id="chatbot-toggle"><i class="fas fa-comment-dots"></i></button>
+    <div id="chatbot-container">
+        <div id="chatbot-header">Assistant Pédagogique</div>
+        <div id="chatbot-messages">
+            <div class="message bot-message">Bonjour ! Pose-moi une question sur le cours. Par exemple : "Qu'est-ce que l'ACV ?"</div>
+        </div>
+        <div id="chatbot-input-container">
+            <input type="text" id="chatbot-input" placeholder="Pose ta question ici...">
+            <button id="chatbot-send"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+    
+    <script type="module">
+        async function generateAndSetImage(imgElement) {
+            const prompt = imgElement.dataset.prompt;
+            if (!prompt) return;
+
+            const loader = document.createElement('div');
+            loader.className = 'loader';
+            imgElement.parentElement.style.position = 'relative';
+            imgElement.parentElement.appendChild(loader);
+            
+            try {
+                const response = await window.ai.generateImages({
+                    model: 'imagen-4.0-generate-001',
+                    prompt: prompt,
+                    config: {
+                      numberOfImages: 1,
+                      outputMimeType: 'image/jpeg',
+                      aspectRatio: '16:9',
+                    },
+                });
+                
+                const base64ImageBytes = response.generatedImages[0].image.imageBytes;
+                const imageUrl = `data:image/jpeg;base64,${base64ImageBytes}`;
+                imgElement.src = imageUrl;
+                imgElement.style.minHeight = 'auto';
+            } catch (error) {
+                console.error("Erreur lors de la génération de l'image:", error);
+                imgElement.alt = "Erreur de génération d'image. " + imgElement.alt;
+            } finally {
+                loader.remove();
+            }
+        }
+        
+        function startImageGeneration() {
+            const imagesToGenerate = document.querySelectorAll('.ai-generated-image');
+            imagesToGenerate.forEach(generateAndSetImage);
+        }
+
+        function waitForAiAndGenerate() {
+            if (window.ai && window.ai.generateImages) {
+                startImageGeneration();
+            } else {
+                console.log('En attente du service AI...');
+                setTimeout(waitForAiAndGenerate, 100);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            waitForAiAndGenerate();
+            
+            const chatbotToggle = document.getElementById('chatbot-toggle');
+            const chatbotContainer = document.getElementById('chatbot-container');
+            const chatbotMessages = document.getElementById('chatbot-messages');
+            const chatbotInput = document.getElementById('chatbot-input');
+            const chatbotSend = document.getElementById('chatbot-send');
+
+            chatbotToggle.addEventListener('click', () => {
+                chatbotContainer.classList.toggle('open');
+            });
+
+            const knowledgeBase = {
+                "acv": "L'ACV, ou Analyse du Cycle de Vie, est une méthode pour calculer l'impact d'un produit sur l'environnement, depuis l'extraction des matières premières jusqu'à sa fin de vie. C'est comme son carnet de santé écologique !",
+                "cycle de vie": "Le cycle de vie d'un produit a 5 grandes étapes : 1. Extraction des matières premières, 2. Fabrication, 3. Transport, 4. Utilisation, et 5. Fin de vie (recyclage, déchet).",
+                "éco-conception": "L'éco-conception, c'est concevoir un objet en pensant dès le début à réduire son impact sur la planète. Par exemple, en le rendant plus facile à réparer ou en utilisant des matériaux recyclés.",
+                "obsolescence": "L'obsolescence, c'est quand un objet devient 'dépassé'. L'obsolescence programmée, c'est quand le fabricant a volontairement limité la durée de vie de l'objet pour que tu en rachètes un plus vite. C'est interdit par la loi !",
+                "développement durable": "Le développement durable, c'est répondre à nos besoins aujourd'hui sans empêcher les générations futures de répondre aux leurs. Il repose sur 3 piliers : l'environnement, le social et l'économie.",
+                "recyclage": "Le recyclage, c'est transformer la matière d'un déchet pour fabriquer un nouvel objet. Par exemple, fondre des canettes pour faire du métal neuf. C'est bien, mais réparer ou réemployer, c'est encore mieux car ça consomme moins d'énergie.",
+                "réemploi": "Le réemploi, c'est réutiliser un objet pour le même usage. Par exemple, acheter un téléphone reconditionné. C'est une excellente solution pour l'environnement !",
+                "bonjour": "Bonjour ! N'hésite pas si tu as une question sur l'impact environnemental, l'éco-conception ou le recyclage.",
+                "merci": "De rien ! Je suis là pour t'aider à comprendre ce cours passionnant.",
+                "default": "Je ne suis pas sûr de comprendre. Peux-tu reformuler ta question en utilisant des mots clés du cours comme 'ACV', 'recyclage' ou 'obsolescence' ?"
+            };
+
+            function addMessage(message, sender) {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message', sender === 'user' ? 'user-message' : 'bot-message');
+                messageElement.textContent = message;
+                chatbotMessages.appendChild(messageElement);
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            }
+
+            function handleUserInput() {
+                const userInput = chatbotInput.value.trim().toLowerCase();
+                if (userInput === '') return;
+
+                addMessage(chatbotInput.value, 'user');
+                chatbotInput.value = '';
+
+                setTimeout(() => {
+                    let botResponse = knowledgeBase.default;
+                    for (const key in knowledgeBase) {
+                        if (userInput.includes(key)) {
+                            botResponse = knowledgeBase[key];
+                            break;
+                        }
+                    }
+                    addMessage(botResponse, 'bot');
+                }, 500);
+            }
+
+            chatbotSend.addEventListener('click', handleUserInput);
+            chatbotInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    handleUserInput();
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
